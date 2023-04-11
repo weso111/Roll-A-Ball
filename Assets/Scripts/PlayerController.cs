@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public TMP_Text timerText;
     public TMP_Text pickupText;
 
+    CameraController cameraController;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
         //Turn off our win panel
         winPanel.SetActive(false);
         inGamePanel.SetActive(true);
+        cameraController = FindObjectOfType<CameraController>();
     }
     void FixedUpdate()
     {
@@ -40,6 +43,14 @@ public class PlayerController : MonoBehaviour
         float moveVertical = Input.GetAxis("Vertical");
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+        if(cameraController.cameraStyle == CameraStyle.Free)
+        {
+            //rotates the player to the direction of the camrea 
+            transform.eulerAngles = Camera.main.transform.eulerAngles;
+            //translates the input vectors into coordinates
+            movement = transform.TransformDirection(movement);
+        }
 
         rb.AddForce(movement * speed);
         //Update the timer text to that of the timer
