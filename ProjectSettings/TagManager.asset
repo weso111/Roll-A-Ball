@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Pick Up
   - Pickup
+  - Whomp
+  - Ground
+  - Death
+  - Star
   layers:
   - Default
   - TransparentFX

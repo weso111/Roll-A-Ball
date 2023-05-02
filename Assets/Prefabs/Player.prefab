@@ -126,8 +126,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806b60993bb95af49a9dc5fb85e7208d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseSpeed: 10
+  powerupSpeed: 30
   speed: 10
   winPanel: {fileID: 0}
+  losePanel: {fileID: 0}
   winTime: {fileID: 0}
   inGamePanel: {fileID: 0}
   timerText: {fileID: 0}

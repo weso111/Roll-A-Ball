@@ -5,15 +5,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 10.0f;
+    public float baseSpeed;
+    public float powerupSpeed;
+    public float speed;
     int pickupCount;
     int totalPickups;
     Timer timer;
     private Rigidbody rb;
     bool wonGame = false;
 
+    public GameObject powerupParticle;
+
     [Header("UI")]
     public GameObject winPanel;
+    public GameObject losePanel;
     public TMP_Text winTime;
     public GameObject inGamePanel;
     public TMP_Text timerText;
@@ -23,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        speed = baseSpeed;
+        Time.timeScale = 1;
         rb = GetComponent<Rigidbody>();
         //Get the number of pickups in our scene
         totalPickups = GameObject.FindGameObjectsWithTag("Pickup").Length;
@@ -70,8 +77,29 @@ public class PlayerController : MonoBehaviour
             CheckPickups();
             // Get the timer object
         }
+        if(other.CompareTag("Death"))
+        {
+            LoseGame();
+        }
+        if (other.CompareTag("Whomp"))
+        {
+            LoseGame();
+        }
+        if (other.CompareTag("Star"))
+        {
+            StartCoroutine(PowerUpTimer());
+            Destroy(other.gameObject);
+        }
     }
 
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "Death")
+        {
+            LoseGame();
+        }
+    }
     void CheckPickups()
     {
         //Debug.Log("Pickups left:" + pickupCount);
@@ -101,6 +129,21 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void LoseGame()
+    {
+        timer.StopTimer();
+        //Debug.Log("You Win!!! Your time was: " + timer.GetTime().ToString("F3"));
+        // inGamePanel on the next
+
+        Time.timeScale = 0;
+
+        inGamePanel.SetActive(false);
+        //Set the timer  on the text
+        winTime.text = "Your time was: " + timer.GetTime().ToString("F3");
+        //Turn on our win panel
+        losePanel.SetActive(true);
+    }
+
 
     //Temporary-Remove wjen doing modules in A2
     public void RestartGame()
@@ -110,8 +153,20 @@ public class PlayerController : MonoBehaviour
 
     }
 
-        
+    public void StarPowerUp()
+    {
+
+    }
    
+
+    IEnumerator PowerUpTimer()
+    {
+        powerupParticle.SetActive(true);
+        speed = powerupSpeed;
+        yield return new WaitForSeconds(20);
+        speed = baseSpeed;
+        powerupParticle.SetActive(false);
+    }
 
 
 

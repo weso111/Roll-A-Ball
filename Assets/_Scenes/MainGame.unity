@@ -17860,6 +17860,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1825093328}
+  cameraStyle: 1
+  pivot: {fileID: 0}
+  rotationspeed: 1
 --- !u!1 &969977660 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3077584546269848533, guid: d54501e7cc6553245b40a254f32d8b1f,
@@ -37465,7 +37468,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50.000244, y: 50}
+  m_AnchoredPosition: {x: -50.000305, y: 50}
   m_SizeDelta: {x: -100, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2069255825
